@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd"
+	default-lazy-init="true">
+
+	<!-- 打开annotation -->
+	<context:annotation-config />
+
+	<!-- 让spring自动扫描 -->
+	<context:component-scan base-package="cn.ibluesea.uc.*" />
+
+	<!-- 使用spring加载properties文件 -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+	<import resource="datasource_ibluesea_uc.xml" />
+
+	<!-- 配置自定义的SqlSessionTemplate模板，注入相关配置 -->
+	<bean id="sqlSessionTemplate" class="cn.ibluesea.uc.datasource.CustomSqlSessionTemplate" scope="prototype">
+		<constructor-arg ref="sqlSessionFactory_ibluesea_uc" />
+		<property name="targetSqlSessionFactorys">
+			<map>
+				<entry value-ref="sqlSessionFactory_ibluesea_uc" key="ibluesea_uc" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- 通过扫描的模式，扫描目录在com/hoo/任意目录下的mapper目录下，所有的mapper都需要继承SqlMapper接口的接口 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="annotationClass" value="org.springframework.stereotype.Repository" />
+		<property name="basePackage" value="cn.ibluesea.uc" />
+		<!-- 注意注入sqlSessionTemplate -->
+		<property name="sqlSessionTemplateBeanName" value="sqlSessionTemplate" />
+	</bean>
+
+	<bean id="userTransactionService" class="com.atomikos.icatch.config.UserTransactionServiceImp" init-method="init"
+		destroy-method="shutdownForce">
+		<constructor-arg>
+			<!-- IMPORTANT: specify all Atomikos properties here -->
+			<props>
+				<prop key="com.atomikos.icatch.service">
+					com.atomikos.icatch.standalone.UserTransactionServiceFactory
+				</prop>
+			</props>
+		</constructor-arg>
+	</bean>
+
+	<!-- 事物管理器 -->
+	<bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager" init-method="init"
+		destroy-method="close" depends-on="userTransactionService">
+		<description>UserTransactionManager</description>
+		<!-- IMPORTANT: disable startup because the userTransactionService above does this -->
+		<property name="startupTransactionService" value="false" />
+		<!-- 调用结束时,是否应该强迫交易终止 -->
+		<property name="forceShutdown" value="true" />
+	</bean>
+
+	<bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp" depends-on="userTransactionService">
+		<description>UserTransactionImp</description>
+		<property name="transactionTimeout" value="3600" />
+	</bean>
+
+	<!-- 配置Spring框架使用来自于Atomikos JTA事务 -->
+	<bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager" depends-on="userTransactionService">
+		<description>JtaTransactionManager</description>
+		<property name="transactionManager" ref="atomikosTransactionManager" />
+		<property name="userTransaction" ref="atomikosUserTransaction" />
+		<property name="allowCustomIsolationLevels" value="true" />
+		<!-- 必须设置，否则程序出现异常 JtaTransactionManager does not support custom isolation levels by default -->
+	</bean>
+
+	<!-- 开启AOP监听 指定使用aspectj方式 -->
+	<aop:aspectj-autoproxy proxy-target-class="false" />
+
+	<!-- aop配置 -->
+	<tx:advice id="transactionManagerAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" isolation="READ_COMMITTED" propagation="REQUIRES_NEW" rollback-for="java.lang.RuntionException" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config proxy-target-class="false">
+		<aop:pointcut id="servicePc" expression="execution(* cn.ibluesea.uc..*Service.*(..))" />
+		<aop:advisor advice-ref="transactionManagerAdvice" pointcut-ref="servicePc" order="1" />
+	</aop:config>
+
+
+	<bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor" />
+	<bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
+		<property name="patterns">
+			<list>
+				<value>cn.ibluesea.uc.*.service.*</value>
+				<value>cn.ibluesea.uc.*.dao.*</value>
+			</list>
+		</property>
+	</bean>
+
+	<aop:config proxy-target-class="true">
+		<aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut" />
+	</aop:config>
+
+</beans>

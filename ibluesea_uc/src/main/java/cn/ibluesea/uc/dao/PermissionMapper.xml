@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ibluesea.uc.dao.PermissionMapper">
+  <resultMap id="BaseResultMap" type="cn.ibluesea.uc.model.Permission">
+    <id column="Id" jdbcType="VARCHAR" property="id" />
+    <result column="RoleId" jdbcType="VARCHAR" property="roleId" />
+    <result column="ResourceId" jdbcType="VARCHAR" property="resourceId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, RoleId, ResourceId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from uc_role_resource
+    where Id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from uc_role_resource
+    where Id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.ibluesea.uc.model.Permission">
+    insert into uc_role_resource (Id, RoleId, ResourceId
+      )
+    values (#{id,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{resourceId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.ibluesea.uc.model.Permission">
+    insert into uc_role_resource
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="roleId != null">
+        RoleId,
+      </if>
+      <if test="resourceId != null">
+        ResourceId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceId != null">
+        #{resourceId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.ibluesea.uc.model.Permission">
+    update uc_role_resource
+    <set>
+      <if test="roleId != null">
+        RoleId = #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceId != null">
+        ResourceId = #{resourceId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.ibluesea.uc.model.Permission">
+    update uc_role_resource
+    set RoleId = #{roleId,jdbcType=VARCHAR},
+      ResourceId = #{resourceId,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

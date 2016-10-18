@@ -1,0 +1,30 @@
+2016-10-18 12:15:44 INFO  [main] com.alibaba.druid.pool.DruidDataSource.init(715) - {dataSource-1} inited
+2016-10-18 12:15:45 INFO  [Thread-1] com.alibaba.druid.pool.DruidDataSource.close(1444) - {dataSource-1} closed
+2016-10-18 12:16:16 INFO  [main] com.alibaba.druid.pool.DruidDataSource.init(715) - {dataSource-1} inited
+2016-10-18 12:16:17 INFO  [Thread-1] com.alibaba.druid.pool.DruidDataSource.close(1444) - {dataSource-1} closed
+2016-10-18 12:18:46 INFO  [main] com.alibaba.druid.pool.DruidDataSource.init(715) - {dataSource-1} inited
+2016-10-18 12:18:47 INFO  [Thread-1] com.alibaba.druid.pool.DruidDataSource.close(1444) - {dataSource-1} closed
+2016-10-18 12:19:29 INFO  [main] com.alibaba.druid.pool.DruidDataSource.init(715) - {dataSource-1} inited
+2016-10-18 12:19:30 INFO  [Thread-1] com.alibaba.druid.pool.DruidDataSource.close(1444) - {dataSource-1} closed
+2016-10-18 12:26:09 INFO  [main] com.alibaba.druid.pool.DruidDataSource.init(715) - {dataSource-1} inited
+2016-10-18 12:26:11 INFO  [Thread-1] com.alibaba.druid.pool.DruidDataSource.close(1444) - {dataSource-1} closed
+2016-10-18 12:29:05 INFO  [main] com.alibaba.druid.pool.DruidDataSource.init(715) - {dataSource-1} inited
+2016-10-18 12:29:06 INFO  [Thread-1] com.alibaba.druid.pool.DruidDataSource.close(1444) - {dataSource-1} closed
+2016-10-18 12:32:00 INFO  [main] com.alibaba.druid.pool.DruidDataSource.init(715) - {dataSource-1} inited
+2016-10-18 12:32:01 INFO  [Thread-1] com.alibaba.druid.pool.DruidDataSource.close(1444) - {dataSource-1} closed
+2016-10-18 12:41:20 INFO  [main] com.alibaba.druid.pool.DruidDataSource.init(715) - {dataSource-1} inited
+2016-10-18 12:41:21 INFO  [Thread-1] com.alibaba.druid.pool.DruidDataSource.close(1444) - {dataSource-1} closed
+2016-10-18 13:45:37 INFO  [main] com.alibaba.druid.pool.DruidDataSource.init(715) - {dataSource-1} inited
+2016-10-18 13:45:37 INFO  [Thread-1] com.alibaba.druid.pool.DruidDataSource.close(1444) - {dataSource-1} closed
+2016-10-18 13:47:46 INFO  [main] com.alibaba.druid.pool.DruidDataSource.init(715) - {dataSource-1} inited
+2016-10-18 13:47:47 INFO  [Thread-1] com.alibaba.druid.pool.DruidDataSource.close(1444) - {dataSource-1} closed
+2016-10-18 13:49:52 INFO  [main] com.alibaba.druid.pool.DruidDataSource.init(715) - {dataSource-1} inited
+2016-10-18 13:49:53 INFO  [Thread-1] com.alibaba.druid.pool.DruidDataSource.close(1444) - {dataSource-1} closed
+2016-10-18 13:51:53 INFO  [main] com.alibaba.druid.pool.DruidDataSource.init(715) - {dataSource-1} inited
+2016-10-18 13:51:54 INFO  [Thread-1] com.alibaba.druid.pool.DruidDataSource.close(1444) - {dataSource-1} closed
+2016-10-18 13:52:44 INFO  [main] com.alibaba.druid.pool.DruidDataSource.init(715) - {dataSource-1} inited
+2016-10-18 13:52:45 INFO  [main] cn.ibluesea.uc.test.BaseTest.TestgetUser(19) - {"id":"e926b19294e511e6ae1a7824af9c115a","locked":false,"nickName":"test","passwd":"123456","salt":"f896adb694e511e6ae1a7824af9c115a","userName":"test"}
+2016-10-18 13:52:45 INFO  [Thread-1] com.alibaba.druid.pool.DruidDataSource.close(1444) - {dataSource-1} closed
+2016-10-18 15:35:52 INFO  [main] com.alibaba.druid.pool.DruidDataSource.init(715) - {dataSource-1} inited
+2016-10-18 15:35:54 INFO  [main] cn.ibluesea.uc.test.BaseTest.TestPasswordHelper1(16) - d1c65a87fe087a0f87a404c9b408941e
+2016-10-18 15:35:54 INFO  [Thread-1] com.alibaba.druid.pool.DruidDataSource.close(1444) - {dataSource-1} closed

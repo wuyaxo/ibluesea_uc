@@ -2,7 +2,7 @@
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
 	<!-- 配置mysql 驱动jar包路径.用了绝对路径 -->
-	<classPathEntry location="D:\MySQL\mysql-connector-java-5.1.35-bin.jar" />
+	<classPathEntry location="D:\MySQL\mysql-connector-java-5.1.39.jar" />
 
 	<context id="ibluesea_uc">
 
@@ -13,20 +13,32 @@
 		</commentGenerator>
 		<!-- 注释控制完毕 -->
 
-		<jdbcConnection connectionURL="jdbc:mysql://node1:3306/uc_test51" driverClass="com.mysql.jdbc.Driver" password="root"
-			userId="root" />
-		<javaModelGenerator targetPackage="cn.ibluesea.uc.model" targetProject="uc">
+		<jdbcConnection connectionURL="jdbc:mysql://data36:3306/ibluesea_uc" driverClass="com.mysql.jdbc.Driver"
+			password="root" userId="root" />
+		<javaModelGenerator targetPackage="cn.ibluesea.uc.model" targetProject="ibluesea_uc">
 			<property name="enableSubPackages" value="true" />
 		</javaModelGenerator>
-		<sqlMapGenerator targetPackage="cn.ibluesea.uc.dao" targetProject="uc">
+		<sqlMapGenerator targetPackage="cn.ibluesea.uc.dao" targetProject="ibluesea_uc">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
-		<javaClientGenerator targetPackage="cn.ibluesea.uc.dao" targetProject="uc" type="XMLMAPPER">
+		<javaClientGenerator targetPackage="cn.ibluesea.uc.dao" targetProject="ibluesea_uc" type="XMLMAPPER">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
-		<table schema="uc_test51" tableName="uc_user" domainObjectName="User" enableCountByExample="false"
+		<table schema="ibluesea_uc" tableName="uc_user" domainObjectName="User" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-			<property name="useActualColumnNames" value="true"/>
+			<property name="useActualColumnNames" value="true" />
+			<ignoreColumn column="CreateTime" />
+			<ignoreColumn column="UpdateTime" />
+		</table>
+		<table schema="ibluesea_uc" tableName="uc_role" domainObjectName="Role" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+			<ignoreColumn column="CreateTime" />
+			<ignoreColumn column="UpdateTime" />
+		</table>
+		<table schema="ibluesea_uc" tableName="uc_role_resource" domainObjectName="Permission" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
 			<ignoreColumn column="CreateTime" />
 			<ignoreColumn column="UpdateTime" />
 		</table>

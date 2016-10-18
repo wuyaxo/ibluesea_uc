@@ -1,0 +1,106 @@
+DROP TABLE
+    uc_organization;
+CREATE TABLE
+    uc_organization
+    (
+        Id VARCHAR(36) NOT NULL COMMENT '组织Id',
+        OrgName VARCHAR(50) COMMENT '组织机构名',
+        Priority INT COMMENT '显示顺序',
+        ParentId VARCHAR(36) COMMENT '父编号',
+        Parent_Ids VARCHAR(100) COMMENT '父编号列表',
+        Available TINYINT(1) DEFAULT 0 COMMENT '是否可用',
+        CreateTime DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+        UpdateTime DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+        PRIMARY KEY(Id)
+    )
+    ENGINE = InnoDB DEFAULT CHARSET = utf8;
+DROP TABLE
+    uc_permission;
+CREATE TABLE
+    uc_permission
+    (
+        Id VARCHAR(36) NOT NULL,
+        Url VARCHAR(256) COMMENT 'url地址',
+        Name VARCHAR(64) COMMENT 'url描述',
+        Type VARCHAR(36),
+        System_Code VARCHAR(36),
+        CreateTime DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+        UpdateTime DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+        PRIMARY KEY(Id)
+    )
+    ENGINE = InnoDB DEFAULT CHARSET = utf8;
+DROP TABLE
+    uc_resource;
+CREATE TABLE
+    uc_resource
+    (
+        Id VARCHAR(36) NOT NULL COMMENT '资源Id',
+        ResName VARCHAR(50) COMMENT '资源名称',
+        Type VARCHAR(50) COMMENT '资源名称',
+        Priority INT COMMENT '显示顺序',
+        ParentId VARCHAR(36) COMMENT '父编号',
+        Parent_Ids VARCHAR(100) COMMENT '父编号列表',
+        Available TINYINT(1) DEFAULT 0 COMMENT '是否可用',
+        CreateTime DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+        UpdateTime DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+        PRIMARY KEY(Id)
+    )
+    ENGINE = InnoDB DEFAULT CHARSET = utf8;
+DROP TABLE
+    uc_role;
+CREATE TABLE
+    uc_role
+    (
+        Id VARCHAR(36) NOT NULL COMMENT '角色Id',
+        RoleName VARCHAR(50) COMMENT '角色名称',
+        Description VARCHAR(50) COMMENT '角色名称',
+        Resource_ids VARCHAR(100) COMMENT '父编号列表',
+        Available TINYINT(1) DEFAULT 0 COMMENT '是否可用',
+        CreateTime DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+        UpdateTime DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+        PRIMARY KEY(Id)
+    )
+    ENGINE = InnoDB DEFAULT CHARSET = utf8;
+DROP TABLE
+    uc_role_permission;
+CREATE TABLE
+    uc_role_permission
+    (
+        Id VARCHAR(36) NOT NULL COMMENT '权限ID',
+        Roleid VARCHAR(36) COMMENT '角色ID',
+        Pid VARCHAR(36) COMMENT '权限ID',
+        PRIMARY KEY(Id)
+    )
+    ENGINE = InnoDB DEFAULT CHARSET = utf8;
+DROP TABLE
+    uc_user;
+CREATE TABLE
+    uc_user
+    (
+        Id VARCHAR(32) NOT NULL,
+        UserName VARCHAR(50) NOT NULL COMMENT '用户名称',
+        Passwd VARCHAR(50) COMMENT '密码',
+        Salt VARCHAR(36) COMMENT '盐值',
+        NickName VARCHAR(50) COMMENT '用户昵称',
+        Email VARCHAR(128) COMMENT '邮箱|登录帐号',
+        Phone VARCHAR(11) COMMENT '手机号',
+        CreateTime DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+        UpdateTime DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+        LastLoginTime DATETIME COMMENT '最后登录时间',
+        Locked TINYINT(1) DEFAULT 0 COMMENT '1:有效，0:禁止登录',
+        PRIMARY KEY(Id)
+    )
+    ENGINE = InnoDB DEFAULT CHARSET = utf8;
+DROP TABLE
+    uc_user_role;
+CREATE TABLE
+    uc_user_role
+    (
+        Id VARCHAR(36) NOT NULL COMMENT '主键ID',
+        UserId VARCHAR(36) COMMENT '用户ID',
+        RoleId VARCHAR(36) COMMENT '角色ID',
+        CreateTime DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+        UpdateTime DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+        PRIMARY KEY(Id)
+    )
+    ENGINE = InnoDB DEFAULT CHARSET = utf8;

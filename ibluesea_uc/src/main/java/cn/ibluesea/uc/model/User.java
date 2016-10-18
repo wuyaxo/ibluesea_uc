@@ -5,9 +5,13 @@ import java.util.Date;
 public class User {
     private String id;
 
+    private String oldId;
+
     private String userName;
 
     private String passwd;
+
+    private String salt;
 
     private String nickName;
 
@@ -15,13 +19,15 @@ public class User {
 
     private String phone;
 
-    private Date createTime;
+    private String orgId;
 
-    private Date updateTime;
+    private Boolean isActived;
+
+    private Boolean isLocked;
+
+    private Boolean isDeleted;
 
     private Date lastLoginTime;
-
-    private Integer status;
 
     public String getId() {
         return id;
@@ -29,6 +35,14 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getOldId() {
+        return oldId;
+    }
+
+    public void setOldId(String oldId) {
+        this.oldId = oldId;
     }
 
     public String getUserName() {
@@ -45,6 +59,14 @@ public class User {
 
     public void setPasswd(String passwd) {
         this.passwd = passwd;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     public String getNickName() {
@@ -71,20 +93,36 @@ public class User {
         this.phone = phone;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public String getOrgId() {
+        return orgId;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setOrgId(String orgId) {
+        this.orgId = orgId;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public Boolean getIsActived() {
+        return isActived;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setIsActived(Boolean isActived) {
+        this.isActived = isActived;
+    }
+
+    public Boolean getIsLocked() {
+        return isLocked;
+    }
+
+    public void setIsLocked(Boolean isLocked) {
+        this.isLocked = isLocked;
+    }
+
+    public Boolean getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
     public Date getLastLoginTime() {
@@ -93,13 +131,5 @@ public class User {
 
     public void setLastLoginTime(Date lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 }
